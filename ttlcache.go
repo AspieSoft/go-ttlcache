@@ -31,12 +31,19 @@ type Cache[T hashable, J any] struct {
 	Grow func(newSize uintptr)
 }
 
-func New[T hashable, J any](ttl time.Duration) *Cache[T, J] {
+func New[T hashable, J any](ttl time.Duration, delInterval ...time.Duration) *Cache[T, J] {
 	cacheList := haxmap.New[T, cacheItem[J]]()
 
 	life := ttl.Nanoseconds()
 
-	syncterval.New(10 * time.Second, func() {
+	var delInt time.Duration
+	if len(delInterval) != 0 {
+		delInt = delInterval[0]
+	}else{
+		delInt = 1 * time.Hour
+	}
+
+	syncterval.New(delInt, func() {
 		now := time.Now().UnixNano()
 		cacheList.ForEach(func(t T, ci cacheItem[J]) {
 			if now - ci.last > life {
