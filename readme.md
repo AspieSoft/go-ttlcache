@@ -29,6 +29,7 @@ import (
 var cache *ttlcache.Cache[string, interface{}]
 
 func main(){
+  // create a new cache with a time to live
   cache = ttlcache.New[string, interface{}](2 * time.Hour)
 
   // optional auto deletion interval (default: 1 hour)
@@ -49,7 +50,14 @@ func main(){
     // Item2 has expired, but the cache may still hold this value and return it
   }
 
-  cache.Touch("Item2") // reset the cache expire time to keep this value longer
+  // reset the cache expire time to keep this value longer
+  cache.Touch("Item2")
+
+  // change the time to live
+  cache.TTL(1 * time.Hour)
+
+  // optional also change auto deletion interval
+  cache.TTL(12 * time.Hour, 24 * time.Hour)
 
 }
 

@@ -22,6 +22,8 @@ type Cache[T hashable, J any] struct {
 	Set func(key T, value J)
 	Del func(key T)
 
+	TTL func(ttl time.Duration, delInterval ...time.Duration)
+
 	ForEach func(lambda func(key T, value J))
 
 	Len func() uintptr
@@ -79,6 +81,14 @@ func New[T hashable, J any](ttl time.Duration, delInterval ...time.Duration) *Ca
 
 		Del: func(key T) {
 			cacheList.Del(key)
+		},
+
+		TTL: func(ttl time.Duration, delInterval ...time.Duration) {
+			life = ttl.Nanoseconds()
+
+			if len(delInterval) != 0 {
+				delInt = delInterval[0]
+			}
 		},
 
 		ForEach: func(lambda func(key T, value J)) {
