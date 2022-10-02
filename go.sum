@@ -1,4 +1,6 @@
 github.com/AspieSoft/go-syncterval v1.0.2 h1:kIFS/ZHrySSLonCGN6lcpcwOKST3DmQfxIfqtcoj/lk=
 github.com/AspieSoft/go-syncterval v1.0.2/go.mod h1:KDPQRl3rF9/SDALWisEz2eb8APyFpRL0ufJY8QaHuKY=
-github.com/alphadose/haxmap v0.2.0 h1:lncWIcLQYALBiHLYz3aDuNvp6tcj3rGiHziG9Jrava0=
-github.com/alphadose/haxmap v0.2.0/go.mod h1:Fu37Wlmj7cR++vSLgRTu3fGy8wpjHGmMypM2aclkc1A=
+github.com/AspieSoft/go-syncterval v1.0.3 h1:uKHRCsg0HRdARk/36GpY+P2tNnjN+FBt31zG3lj+RNY=
+github.com/AspieSoft/go-syncterval v1.0.3/go.mod h1:F4hG1ayOBB0PrCP/LCUuFZYKC4ARNKKCgWSUmq6hRd4=
+github.com/alphadose/haxmap v1.0.0 h1:fap5Y4ksllFZ5ZG7ffWG4QJ8lh/oLaqfXWVp7Aj4TOo=
+github.com/alphadose/haxmap v1.0.0/go.mod h1:Fu37Wlmj7cR++vSLgRTu3fGy8wpjHGmMypM2aclkc1A=

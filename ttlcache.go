@@ -47,10 +47,11 @@ func New[T hashable, J any](ttl time.Duration, delInterval ...time.Duration) *Ca
 
 	syncterval.New(delInt, func() {
 		now := time.Now().UnixNano()
-		cacheList.ForEach(func(t T, ci cacheItem[J]) {
+		cacheList.ForEach(func(t T, ci cacheItem[J]) bool {
 			if now - ci.last > life {
 				cacheList.Del(t)
 			}
+			return true
 		})
 	})
 
@@ -92,18 +93,20 @@ func New[T hashable, J any](ttl time.Duration, delInterval ...time.Duration) *Ca
 		},
 
 		ForEach: func(lambda func(key T, value J)) {
-			cacheList.ForEach(func(t T, ci cacheItem[J]) {
+			cacheList.ForEach(func(t T, ci cacheItem[J]) bool {
 				lambda(t, ci.value)
+				return true
 			})
 		},
 
 		Len: func() uintptr {
 			l := uintptr(0)
 			now := time.Now().UnixNano()
-			cacheList.ForEach(func(t T, ci cacheItem[J]) {
+			cacheList.ForEach(func(t T, ci cacheItem[J]) bool {
 				if now - ci.last <= life {
 					l++
 				}
+				return true
 			})
 			return l
 		},
