@@ -50,7 +50,7 @@ func main(){
     // Item2 has expired, but the cache may still hold this value and return it
   }
 
-  // reset the cache expire time to keep this value longer
+  // reset the cache expire time for an item to keep this value longer
   cache.Touch("Item2")
 
   // change the time to live
@@ -58,6 +58,17 @@ func main(){
 
   // optional also change auto deletion interval
   cache.TTL(12 * time.Hour, 24 * time.Hour)
+
+  // clear expired items from cache
+  // this is done automatically on an interval, but you can run it manually if you want
+  cache.ClearExpired()
+
+  // clear items early if they were last accessed longer than a given time
+  // this can be useful if you detect heavy memory usage, and need to shrink the cache sooner then usual
+  cache.ClearEarly(2 * time.Hour)
+
+  // remove the optional parameter to clear the entire cache
+  cache.ClearEarly()
 
 }
 

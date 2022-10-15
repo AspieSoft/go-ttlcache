@@ -28,4 +28,21 @@ func Test(t *testing.T) {
 	if l := cache.MapLen(); l == 0 {
 		t.Error(errors.New("cache map should not be empty yet. reported length"), l)
 	}
+
+	cache.Set("TestB", 2)
+
+	cache.ClearExpired()
+	if l := cache.MapLen(); l == 0 {
+		t.Error(errors.New("cache map should not be empty yet. reported length"), l)
+	}
+
+	cache.ClearEarly(1 * time.Second)
+	if l := cache.MapLen(); l == 0 {
+		t.Error(errors.New("cache map should not be empty yet. reported length"), l)
+	}
+
+	cache.ClearEarly()
+	if l := cache.MapLen(); l != 0 {
+		t.Error(errors.New("cache map should be empty now. reported length"), l)
+	}
 }
